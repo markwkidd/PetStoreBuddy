@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,10 +32,17 @@ namespace PetStore
 
         public List<Product> GetAllProducts() { return _products; }
 
-        public DogLeash GetDogLeashByName(string name)
+        public DogLeash? GetDogLeashByName(string name)
         {
-            return _leashes[name];
+            try
+            {
+                return _leashes[name];
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return null;
+            }
+
         }
     }
-
 }

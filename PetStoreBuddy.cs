@@ -10,13 +10,12 @@ namespace PetStore
             string? userInput = String.Empty;
             ProductLogic logic = new ProductLogic();
 
-            Console.WriteLine("***PET STORE BUDDY***");
             do
             {
-                Console.Write("\n");
+                Console.WriteLine("***PET STORE BUDDY***\n");
                 Console.WriteLine("Enter '1' to add a product");
                 Console.WriteLine("Enter '2' to search for a dog leash");
-                Console.WriteLine("Enter '8' to lits all products");
+                Console.WriteLine("Enter '8' to list all products");
                 Console.WriteLine("Enter 'exit' to quit\n");
                 Console.Write("> ");
 
@@ -65,25 +64,29 @@ namespace PetStore
                 } else if (userInput == "2")
                 {
                     DogLeash? retrieved = null;
-                    Console.Write("Product search\nEnter the name of the dog leash: ");
+                    Console.WriteLine("PRODUCT SEARCH\n");
+                    Console.Write("Enter the name of the dog leash: ");
                     userInput = Console.ReadLine();
                     if (userInput != null) retrieved = logic.GetDogLeashByName(userInput.Trim());
                     if (retrieved == null)
                     {
-                        Console.Write("Product not found.");
+                        Console.WriteLine("Product not found.\n");
                     }
-                    Console.WriteLine("Product found.");
-                    Console.WriteLine(JsonSerializer.Serialize(retrieved));
-
-
+                    else
+                    {
+                        Console.WriteLine("Product found:");
+                        Console.WriteLine(JsonSerializer.Serialize(retrieved) + "\n");
+                    }
                 }
                 else if (userInput == "8")
                 {
                     List<Product> products = logic.GetAllProducts();
+                    Console.WriteLine("\nListing all products:");
                     foreach (var product in products)
                     {
                         Console.WriteLine(JsonSerializer.Serialize(product));
                     }
+                    Console.WriteLine("\n");
                 }
             } while (userInput != null && userInput.ToLower() != "exit"); // testing for null here only to silence a warning
 
